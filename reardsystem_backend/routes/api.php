@@ -39,6 +39,7 @@ Route::group([
     Route::get('{id}/available', 'PointController@availableUsers');
     Route::get('{id}/notifications', 'PointController@notifications');
     Route::get('{id}/admin/notifications', 'PointController@adminNotifications');
+    Route::get('{id}/point', 'PointController@getUserPoints');
 });
 
 Route::group([

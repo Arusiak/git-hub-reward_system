@@ -62,14 +62,18 @@ class PointController extends Controller
         return $user;
     }
 
-    public function getUserPoints($id,$user){
+    public function getUserPoints($id){
+        $points = Point::where('to',$id)->orderby('id','desc')->with('from','to')->get();
 
-//        $userPoints = Point::where('from',$id)->where('to',$user->id)->whereDate('created_at',$today->format('Y-m-d'))->get();
-//        if(count($sendToday) > 0){
-//            $user->sendPoint = false;
-//        }else{
-//            $user->sendPoint = true;
-//        }
-        return $user;
+        return $this->pointsSummary($points);
+    }
+
+    public function pointsSummary($points){
+        $sum = 0;
+        foreach ($points as $point){
+            $sum += $point->quantity;
+        }
+
+        return $sum;
     }
 }
